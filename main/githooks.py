@@ -318,7 +318,8 @@ def check_eol(files):
         if '\0' in data:
             continue
 
-        if data.find('\r\n') != -1:
+        # Exception for .bat as they are only run in windows environments.
+        if data.find('\r\n') != -1 and not filename.endswith(".bat"):
             _fail(f'Bad line endings in {filename}')
             return 1
     return 0
